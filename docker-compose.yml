@@ -1,0 +1,55 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: ./Frontend # Path to your frontend Dockerfile 
+    container_name: BearShare-Frontend
+    ports:
+      - "5173:5173" # Adjust the port as needed
+    volumes:
+      - ./Frontend:/app # Mount the frontend source code directory to the container
+      - /app/node_modules
+    depends_on:
+      - backend # Ensure the backend is started before the frontend  
+
+  backend:
+    build:
+      context: ./Backend # Path to your backend Dockerfile
+    container_name: BearShare-Backend
+    ports:
+      - "5000:5000" # Adjust the port as needed
+    volumes:
+      - ./Backend:/app # Mount the backend source code directory to the container
+      - /app/node_modules
+    env_file:
+      - ./Backend/.env # Load environment variables from .env file
+    depends_on:
+      - mysql # Ensure MySQL is started before the backend
+
+  mysql:
+    image: mysql:8.0
+    container_name: BearShare-MySQL
+    ports:
+      - "3306:3306" # Expose MySQL port
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE:  bearshare_db
+      MYSQL_USER: bearshare
+      MYSQL_PASSWORD: bearshare123
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: BearShare-phpMyAdmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: bearshare
+      PMA_PASSWORD: bearshare123
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+
+volumes:
+  mysql-data:
