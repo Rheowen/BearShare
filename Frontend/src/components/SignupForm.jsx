@@ -1,0 +1,58 @@
+// components/SignupForm.jsx
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useAppContext } from '../context/AppContext';
+
+const SignupForm = ({ onSwitch }) => {
+  const { setUser } = useAppContext();
+
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    phone: '',
+  });
+
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      setError('');
+     const res = await axios.post('http://localhost:5000/api/auth/register', form); //  เก็บ response ก่อน
+     console.log('Signup success:', res.data);
+     setUser(res.data.user); //  ถ้า backend ส่ง user กลับมาจริง
+    } catch (err) {
+      console.error('Signup error:', err.response?.data || err.message);
+      setError(err.response?.data?.message || 'Something went wrong');
+    }
+  };
+
+  return (
+    <div>
+      <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
+      <input name="name" type="text" placeholder="Name" value={form.name} onChange={handleChange} className="w-full p-2 border rounded mb-3" />
+      <input name="email" type="email" placeholder="Email" value={form.email} onChange={handleChange} className="w-full p-2 border rounded mb-3" />
+      <input name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} className="w-full p-2 border rounded mb-3" />
+      <input name="phone" type="text" placeholder="Phone" value={form.phone} onChange={handleChange} className="w-full p-2 border rounded mb-4" />
+
+      {error && <p className="text-red-600 text-sm mb-2">{error}</p>}
+      
+      <button onClick={handleSubmit} className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-500">
+        Sign Up
+      </button>
+
+      <p className="mt-4 text-sm text-center">
+        Already have an account?{' '}
+        <span onClick={onSwitch} className="text-blue-600 cursor-pointer underline">
+          Login
+        </span>
+      </p>
+    </div>
+  );
+};
+
+export default SignupForm;
