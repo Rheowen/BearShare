@@ -2,12 +2,16 @@ require('dotenv').config({ path: '../.env' });
 const express = require('express');
 const cors = require('cors');
 const db = require('./db');
+const productRoutes = require('./routes/productRoutes');
 
 
 const app = express();
 
+
 app.use(cors());
 app.use(express.json());
+app.use('/api/products', productRoutes);
+
 
 // API
 app.get('/', (req, res) => {
@@ -27,8 +31,6 @@ app.get('/api/check-db', (req, res) => {
     }
   });
 });
-
-
 
 // ดึงผู้ใช้
 app.get('/users', (req, res) => {

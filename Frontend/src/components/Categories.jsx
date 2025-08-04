@@ -5,6 +5,7 @@ import { useAppContext } from '../context/AppContext'
 
 
 
+
 const Categories = () => {
 
 const { navigate } = useAppContext();
@@ -16,6 +17,9 @@ const { navigate } = useAppContext();
         <div className="flex flex-col items-center cursor-pointer" onClick={() => { navigate('/products'); scrollToTop(0, 0); }}>
           <img src={imageCate} alt="" className="w-40 h-40 rounded-full object-cover hover:scale-105 transition-transform duration-300" />
           <p className="text-center mt-2">Dolls</p>
+          <button  onClick={() => navigate('/products?mode=products')} >
+             add
+          </button>
         </div>
       </div>
     </div>

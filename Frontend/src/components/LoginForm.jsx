@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useAppContext } from '../context/AppContext';
-import { useNavigate } from 'react-router-dom';
 
 const LoginForm = ({ onSwitch }) => {
-  const { setUser } = useAppContext();
-  const navigate = useNavigate(); // เพิ่ม useNavigate
+  const { login } = useAppContext(); 
 
   const [form, setForm] = useState({
     email: '',
@@ -21,14 +18,9 @@ const LoginForm = ({ onSwitch }) => {
   const handleSubmit = async () => {
     try {
       setError('');
-      const res = await axios.post('http://localhost:5000/api/auth/login', form);
-      console.log('Login success:', res.data);
-      setUser(res.data.user);
-
-      // ถ้า login สำเร็จให้เปลี่ยนหน้าไป Home
-      navigate('/');
+      await login(form.email, form.password); // ✅ เรียก login จาก context
     } catch (err) {
-      setError(err.response?.data?.message || 'Something went wrong');
+      setError(err.message || 'Something went wrong');
     }
   };
 

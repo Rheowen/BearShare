@@ -1,10 +1,8 @@
-// components/SignupForm.jsx
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useAppContext } from '../context/AppContext';
 
 const SignupForm = ({ onSwitch }) => {
-  const { setUser } = useAppContext();
+  const { register } = useAppContext(); //เรียก register จาก context
 
   const [form, setForm] = useState({
     name: '',
@@ -22,12 +20,9 @@ const SignupForm = ({ onSwitch }) => {
   const handleSubmit = async () => {
     try {
       setError('');
-     const res = await axios.post('http://localhost:5000/api/auth/register', form); //  เก็บ response ก่อน
-     console.log('Signup success:', res.data);
-     setUser(res.data.user); //  ถ้า backend ส่ง user กลับมาจริง
+      await register(form); //เรียก context (จะ navigate ให้อัตโนมัติ)
     } catch (err) {
-      console.error('Signup error:', err.response?.data || err.message);
-      setError(err.response?.data?.message || 'Something went wrong');
+      setError(err.message || 'Something went wrong');
     }
   };
 

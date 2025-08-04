@@ -90,7 +90,7 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/logout" onClick={() => setUser(false)} className="hover:text-[#FAAB78] transition">
+                <NavLink to="/" onClick={() => setUser(false)} className="hover:text-[#FAAB78] transition">
                   Logout
                 </NavLink>
               </li>
