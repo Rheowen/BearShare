@@ -69,21 +69,18 @@ exports.deleteProduct = (req, res) => {
   });
 };
 
-// exports.getAllProducts = (req, res) => {
-//   const sql = `
-//     SELECT p.*, c.name AS category_name, a.label AS age_group_label
-//     FROM products p
-//     LEFT JOIN categories c ON p.category_id = c.category_id
-//     LEFT JOIN age_groups a ON p.age_group_id = a.age_group_id
-//     ORDER BY p.created_at DESC
-//   `;
+// แสดงสินค้าทั้งหมด
+exports.getAllProducts = (req, res) => {
+  const sql = 'SELECT * FROM products ORDER BY product_id DESC';
 
-//   db.query(sql, (err, results) => {
-//     if (err) {
-//       console.error('Get products error:', err);
-//       return res.status(500).json({ message: 'Database error' });
-//     }
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error('Get products error:', err);
+      return res.status(500).json({ message: 'Database error' });
+    }
 
-//     res.json(results);
-//   });
-// };
+    res.json({ products: results });
+  });
+};
+
+

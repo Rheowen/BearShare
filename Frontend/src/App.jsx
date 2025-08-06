@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import { useAppContext } from './context/AppContext';
 import LoginPage from './pages/LoginPage';
 import ProductsPage from './pages/ProductsPage';
+import ShowProduct from './pages/ShowProduct';
 
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
          <Route path="/products" element={<ProductsPage />} />
+         <Route path="/showproduct" element={<ShowProduct />} />
         </Routes>
       </div>
     </div>

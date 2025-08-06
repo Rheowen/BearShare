@@ -27,9 +27,13 @@ const SignupForm = ({ onSwitch }) => {
   };
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
-      <input name="name" type="text" placeholder="Name" value={form.name} onChange={handleChange} className="w-full p-2 border rounded mb-3" />
+    <div className=' absalust flex-1/2 item-center my-5 mx-5 '>
+      <div>
+        <img src="" alt="" />
+      </div>
+      <div className=''>
+          <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
+            <input name="name" type="text" placeholder="Name" value={form.name} onChange={handleChange} className="w-full p-2 border rounded mb-3" />
       <input name="email" type="email" placeholder="Email" value={form.email} onChange={handleChange} className="w-full p-2 border rounded mb-3" />
       <input name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} className="w-full p-2 border rounded mb-3" />
       <input name="phone" type="text" placeholder="Phone" value={form.phone} onChange={handleChange} className="w-full p-2 border rounded mb-4" />
@@ -46,6 +50,10 @@ const SignupForm = ({ onSwitch }) => {
           Login
         </span>
       </p>
+
+      </div>
+    
+  
     </div>
   );
 };
