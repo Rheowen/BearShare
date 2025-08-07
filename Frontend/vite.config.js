@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [tailwindcss(), react()],
   server: {
-    host: '0.0.0.0',  //เปิดให้เข้าถึงจากเครื่อง host หรือ container อื่น ๆ ได้
+    host: '0.0.0.0',  //เปิดให้เข้าถึงจากเครื่อง host หรือ container อื่น ได้
     port: 5173,
     proxy: {
       '/api': {

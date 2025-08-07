@@ -1,20 +1,20 @@
-# ใช้ Node.js LTS บน Alpine (ขนาดเล็ก ประหยัดทรัพยากร)
-FROM node:lts-alpine
+# ใช้ Node.js base image
+FROM node:18
 
 # ตั้ง working directory
 WORKDIR /app
 
-# คัดลอกไฟล์ dependency ไปก่อน (เพื่อให้ layer นี้ cache ได้)
+# คัดลอก package.json และ package-lock.json ไปใน container
 COPY package*.json ./
 
 # ติดตั้ง dependencies
 RUN npm install
 
-# คัดลอกไฟล์โปรเจกต์ที่เหลือเข้าไป
+# คัดลอกไฟล์ทั้งหมดไปยัง container
 COPY . .
 
-# เปิดพอร์ต 5000 สำหรับ backend
+# เปิดพอร์ต
 EXPOSE 5000
 
-# รันเซิร์ฟเวอร์
-CMD ["npm","run","dev"]
+# รันแอป
+CMD ["npm", "run", "dev"]

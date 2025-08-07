@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const db = require('../db');
 
 const loginUser = (req, res) => {
@@ -21,20 +22,32 @@ const loginUser = (req, res) => {
 
     const user = results[0];
 
-    // ตรวจสอบรหัสผ่านโดย bcrypt
-    const match = await bcrypt.compare(password, user.password_hash);
+    // ตรวจสอบรหัสผ่าน
+    const match = await bcrypt.compare(password, user.password);
     if (!match) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    // ไม่ส่ง password_hash กลับไป
-    const { password_hash, ...userWithoutPassword } = user;
+    // สร้าง JWT token
+    const token = jwt.sign(
+      {
+        user_id: user.user_id, 
+        email: user.email,
+        role: user.role
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: '2h' }
+    );
 
-    return res.json({ message: 'Login successful', user: userWithoutPassword });
+    // ไม่ส่ง password กลับ
+    const { password, ...userWithoutPassword } = user;
+
+    return res.json({
+      message: 'Login successful',
+      token,
+      user: userWithoutPassword
+    });
   });
 };
 
-module.exports = {
-  registerUser,
-  loginUser,
-};
+module.exports = loginUser;
