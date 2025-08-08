@@ -1,4 +1,5 @@
 const db = require('../db');
+const { param } = require('../routes/authRoutes');
 
 // เพิ่มสินค้า
 exports.createProduct = (req, res) => {
@@ -69,17 +70,51 @@ exports.deleteProduct = (req, res) => {
   });
 };
 
-// แสดงสินค้าทั้งหมด
+// แสดงสินค้าทั้งหมด + filter
 exports.getAllProducts = (req, res) => {
-  const sql = 'SELECT * FROM products ORDER BY product_id DESC';
+  const { category_id, age_group_id, is_rentable, maxPrice, minPrice, search } = req.query;
 
-  db.query(sql, (err, results) => {
+  let sql = 'SELECT * FROM products WHERE 1=1';
+  const params = [];
+
+  if (category_id) {
+    sql += ' AND category_id = ?'; //sql = 'SELECT * FROM products WHERE 1=1 AND category_id = ?'
+    params.push(category_id);
+  }
+
+  if (age_group_id) {
+    sql += ' AND age_group_id = ?';
+    params.push(age_group_id); 
+  }
+
+  if (is_rentable !== undefined) {
+    sql += ' AND is_rentable = ?';
+    params.push(is_rentable);
+  }
+
+  if (minPrice && maxPrice) {
+    sql += ' AND price BETWEEN ? AND ?';
+    params.push(minPrice, maxPrice);
+  }
+
+  if (search) {
+    sql += ' AND title LIKE ?'; 
+    params.push(`%${search}%`);
+  }
+
+  sql += ' ORDER BY product_id DESC';        //SELECT * FROM products WHERE category_id = ? ORDER BY product_id DESC
+                                             //เรียงลำดับตาม product_id  DESC (Descending)สินค้าที่เพิ่มล่าสุดจะอยู่ด้านบน ตรงข้ามASC
+
+  db.query(sql, params, (err, results) => {
     if (err) {
       console.error('Get products error:', err);
       return res.status(500).json({ message: 'Database error' });
     }
 
-    res.json({ products: results });
+    res.status(200).json({
+      message: 'Products fetched successfully',
+      products: results,
+    });
   });
 };
 

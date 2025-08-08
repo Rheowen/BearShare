@@ -4,6 +4,8 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('./db');
+const authRoutes = require('./routes/authRoutes');
+const productRoutes = require('./routes/productRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,24 +17,28 @@ app.use(express.json());
 // =========================
 // Routes
 // =========================
+app.use('/api/auth', authRoutes);  
+app.use('/api/products', productRoutes);
+
 app.get('/', (req, res) => {
   res.send({ message: 'Server is running', time: new Date().toISOString() });
 });
 
-app.get('/api/check-db', (req, res) => {
-  db.query('SELECT 1', (err) => {
-    if (err) return res.status(500).json({ message: 'Database not connected' });
-    res.json({ message: 'Database connected' });
-  });
-});
+// app.get('/api/check-db', (req, res) => {
+//   db.query('SELECT 1', (err) => {
+//     if (err) return res.status(500).json({ message: 'Database not connected' });
+//     res.json({ message: 'Database connected' });
+//   });
+// });
 
 // =========================
 // Auth Routes
 // =========================
 
-// ✅ REGISTER (hash password ก่อนบันทึก)
+//  REGISTER (hash password ก่อนบันทึก)
 app.post('/api/auth/register', async (req, res) => {
-  const { name, email, password, phone } = req.body;
+  const { name, email, password, phone, role = 'user' } = req.body;
+
 
   if (!name || !email || !password || !phone)
     return res.status(400).json({ message: 'Missing required fields' });
@@ -40,8 +46,8 @@ app.post('/api/auth/register', async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const sql = 'INSERT INTO users (name, email, password, phone) VALUES (?, ?, ?, ?)';
-    db.query(sql, [name, email, hashedPassword, phone], (err, result) => {
+    const sql = 'INSERT INTO users (name, email, password, phone, role) VALUES (?, ?, ?, ?, ?)';
+db.query(sql, [name, email, hashedPassword, phone, role], (err, result) => {
       if (err) return res.status(500).json({ message: 'Register error', error: err });
 
       res.status(201).json({

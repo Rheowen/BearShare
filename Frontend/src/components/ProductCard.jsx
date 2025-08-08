@@ -1,7 +1,7 @@
-
 import React from 'react';
+import { AppContext } from '../context/AppContext';
 
-const ProductCard = ({ product, isSeller, onEdit, onDelete }) => {
+const ProductCard = ({ product, isAdmin, onEdit, onDelete }) => {
   const [count, setCount] = React.useState(0);
 
   return (
@@ -46,7 +46,7 @@ const ProductCard = ({ product, isSeller, onEdit, onDelete }) => {
                 Add
               </button>
             {/* ถ้าเป็น seller แสดงปุ่ม Edit Delete */}
-            {isSeller && (
+            {isAdmin && (
               <>
                 <button onClick={onEdit} className="text-blue-600 hover:underline ml-4" title="Edit Product">Edit</button>
                 <button onClick={onDelete} className="text-red-600 hover:underline ml-2" title="Delete Product">Delete</button>

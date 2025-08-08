@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/productController');
-const verifyToken = require('../middleware/verifyToken');
-const checkRole = require('../middleware/checkRole');
+const verifyToken = require('../middlewares/verifyToken');
+const checkRole = require('../middlewares/checkRole');
 
-//ทุกคนดูสินค้าได้
+//ทุกคนดูสินค้าได้หมด
 router.get('/', productController.getAllProducts);
 
 // admin  แก้ไข / ลบได้

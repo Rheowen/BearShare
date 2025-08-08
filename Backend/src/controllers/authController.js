@@ -2,6 +2,48 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('../db');
 
+// Register user
+const registerUser = async (req, res) => {
+  const { name, email, password, phone } = req.body;
+
+  if (!name || !email || !password || !phone) {
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
+
+  try {
+    // ตรวจสอบว่ามี email นี้ในระบบหรือยัง
+    const checkSql = 'SELECT * FROM users WHERE email = ?';
+    db.query(checkSql, [email], async (err, results) => {
+      if (err) return res.status(500).json({ message: 'Database error', error: err });
+      if (results.length > 0)
+        return res.status(409).json({ message: 'Email already registered' });
+
+      // hash password
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      // insert user
+      const insertSql = 'INSERT INTO users (name, email, password, phone) VALUES (?, ?, ?, ?)';
+      db.query(insertSql, [name, email, hashedPassword, phone], (err, result) => {
+        if (err) return res.status(500).json({ message: 'Register error', error: err });
+
+        res.status(201).json({
+          message: 'User registered',
+          user: {
+            user_id: result.insertId,
+            name,
+            email,
+            phone,
+            role: 'user',
+          },
+        });
+      });
+    });
+  } catch (err) {
+    res.status(500).json({ message: 'Error hashing password', error: err });
+  }
+};
+
+// Login user
 const loginUser = (req, res) => {
   const { email, password } = req.body;
 
@@ -40,8 +82,7 @@ const loginUser = (req, res) => {
     );
 
     // ไม่ส่ง password กลับ
-    const { password, ...userWithoutPassword } = user;
-
+  const { password: userPassword, ...userWithoutPassword } = user;
     return res.json({
       message: 'Login successful',
       token,
@@ -50,4 +91,4 @@ const loginUser = (req, res) => {
   });
 };
 
-module.exports = loginUser;
+module.exports = { registerUser, loginUser };

@@ -5,7 +5,7 @@ import ProductCard from "../components/ProductCard"
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isSeller, setIsSeller] = useState(true); // สมมติเป็น seller
+  const [isAdmin, setIsAdmin] = useState(true); 
   const [editingProduct, setEditingProduct] = useState(null);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const ProductsPage = () => {
           <ProductCard
             key={product.product_id}
             product={product}
-            isSeller={isSeller}
+            isAdmin={isAdmin}
             onEdit={() => handleEdit(product)}
             onDelete={() => handleDelete(product.product_id)}
           />
