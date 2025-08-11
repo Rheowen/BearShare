@@ -11,14 +11,14 @@ const Navbar = () => {
   // ซ่อน Navbar ถ้า path คือ /login
   if (location.pathname === '/login') {
     return null
-  }
+  }  
 
   return (
     <nav className="flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-gray-300 bg-white relative transition-all">
       <div className="flex items-center gap-20">
         <NavLink to="/" className="flex items-center">
           <img src="/Logo-bearshear.svg" alt="Logo" width="50" height="40" />
-          <span className="text-xl font-bold ml-2 text-[#FAAB78]">Bear Shaer</span>
+          <span className="text-xl font-bold ml-2 text-[#FAAB78]">Bear Share</span>
         </NavLink>
 
         {/* Desktop Menu */}
