@@ -16,7 +16,7 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
+      <div className="bg-white  rounded-2xl shadow-xl w-full max-w-5xl ">
         {isLogin ? (
           <LoginForm onSwitch={toggleForm} />
         ) : (

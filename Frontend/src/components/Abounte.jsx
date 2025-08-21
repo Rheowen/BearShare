@@ -13,6 +13,6 @@ const Abounte = () => {
       
     </div>
   )
-}
+}    
 
 export default Abounte

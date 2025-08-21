@@ -17,7 +17,7 @@ const handleLogin = async (email, password) => {
     const data = await authApi.login(email, password);
     setUser(data.user);
     setIsAdmin(data.user.role === "admin");
-    localStorage.setItem('token', data.token);   // เก็บ token ไว้
+    localStorage.setItem('token', data.token);   // เก็บtoken 
     navigate("/");
   } catch (err) {
     console.error("Login error:", err.message);

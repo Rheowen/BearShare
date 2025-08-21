@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { useAppContext } from '../context/AppContext.jsx'
+import ShowProduct from '../pages/ShowProduct.jsx'
 
 const Navbar = () => {
   const [open, setOpen] = React.useState(false)
@@ -25,7 +26,7 @@ const Navbar = () => {
         <div className="flex items-start gap-0">
           <ul className="hidden md:flex items-center gap-8 text-sm">
             <li><NavLink to="/" className="hover:text-[#FAAB78] transition">Home</NavLink></li>
-            <li><NavLink to="/marketplace" className="hover:text-[#FAAB78] transition">Marketplace</NavLink></li>
+            <li><NavLink to="" className="hover:text-[#FAAB78] transition">Marketplace</NavLink></li>
             <li><NavLink to="/categories" className="hover:text-[#FAAB78] transition">Categories</NavLink></li>
             <li><NavLink to="/about" className="hover:text-[#FAAB78] transition">About</NavLink></li>
             <li><NavLink to="/community" className="hover:text-[#FAAB78] transition">Community</NavLink></li>
