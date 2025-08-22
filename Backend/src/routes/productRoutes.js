@@ -4,11 +4,15 @@ const productController = require('../controllers/productController');
 const verifyToken = require('../middlewares/verifyToken');
 const checkRole = require('../middlewares/checkRole');
 
-//ทุกคนดูสินค้าได้หมด
+// ทุกคนดูสินค้าได้หมด
 router.get('/', productController.getAllProducts);
 
-// admin  แก้ไข / ลบได้
+// ดูสินค้าแบบรายตัว
+router.get('/:id', productController.getProductById);
+
+// admin แก้ไข / ลบ / เพิ่มสินค้า
 router.post('/', verifyToken, checkRole('admin'), productController.createProduct);
 router.put('/:id', verifyToken, checkRole('admin'), productController.updateProduct);
 router.delete('/:id', verifyToken, checkRole('admin'), productController.deleteProduct);
+
 module.exports = router;

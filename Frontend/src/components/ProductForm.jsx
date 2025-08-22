@@ -14,7 +14,6 @@ const ProductForm = ({ onSubmit, initialData = {}, isEditing, onCancel }) => {
     category_id: '',
     age_group_id: '',
     image: '',
-    ...initialData,
   });
 
   const handleChange = (e) => {

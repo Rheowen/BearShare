@@ -15,7 +15,7 @@ const Navbar = () => {
   }  
 
   return (
-    <nav className="flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-gray-300 bg-white relative transition-all">
+    <nav className="flex  items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-gray-300 bg-white relative transition-all">
       <div className="flex items-center gap-20">
         <NavLink to="/" className="flex items-center">
           <img src="/Logo-bearshear.svg" alt="Logo" width="50" height="40" />

@@ -1,15 +1,20 @@
 import React from 'react';
 import { AppContext } from '../context/AppContext';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 const ProductCard = ({ product, isAdmin, onEdit, onDelete }) => {
   const [count, setCount] = React.useState(0);
+    const navigate = useNavigate();
 
   return (
-    <div className="border border-gray-500/20 rounded-md md:px-4 px-3 py-2 bg-white min-w-56 max-w-56 w-full">
+    <div onClick={() => navigate(`/products/${product.product_id}`)} className="border border-gray-500/20 rounded-md md:px-4 px-3 py-2 bg-white min-w-56 max-w-56 w-full">
       <div className="group cursor-pointer flex items-center justify-center px-2">
         <img
           className="group-hover:scale-105 transition max-w-26 md:max-w-36"
-          src= 'https://via.placeholder.com/200x150'
+          src='{product.image}'
           alt={product.title}
         />
       </div>
