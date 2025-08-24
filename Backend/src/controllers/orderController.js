@@ -59,10 +59,10 @@ exports.getAllOrders = (req, res) => {
   }
 
   const sql = `
-    SELECT o.*, p.title, p.price, p.image, u.username
+    SELECT o.*, p.title, p.price, p.image, u.name as user_name
     FROM orders o
     JOIN products p ON o.product_id = p.product_id
-    JOIN users u ON o.user_id = u.id
+    JOIN users u ON o.user_id = u.user_id
     ORDER BY o.created_at DESC
   `;
 
@@ -71,6 +71,7 @@ exports.getAllOrders = (req, res) => {
     res.json(results);
   });
 };
+
 
 // ===========================
 // Admin อัปเดต Status ของ Order

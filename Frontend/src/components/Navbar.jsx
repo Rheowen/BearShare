@@ -81,21 +81,41 @@ const Navbar = () => {
             </button>
           </div>
         ) : (
-          <div>
-            <img src="/assets/profile.jpg" alt="profile-icon" />
-            <ul>
-              <li>
-                <NavLink to="/settings" className="hover:text-[#FAAB78] transition">
-                  Settings
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/" onClick={() => setUser(false)} className="hover:text-[#FAAB78] transition">
-                  Logout
-                </NavLink>
-              </li>
-            </ul>
-          </div>
+       <div className='px-6 py-2 bg-[#FAAB78] font-promt rounded-lg shadow-md'>
+  <img src="/assets/profile.jpg" alt="profile-icon" />
+  <ul>
+    {user.role === 'user' && (
+      <li>
+        <NavLink to="/myorders" className="hover:text-[#FAAB78] transition">
+          My Orders
+        </NavLink>
+      </li>
+     )}
+          {user.role === 'admin' && (
+            <li>
+              <NavLink to="/admindashboard" className="hover:text-[#FAAB78] transition">
+                Admin Dashboard
+              </NavLink>
+            </li>
+          )}
+
+          <li>
+            <NavLink to="/settings" className="hover:text-[#FAAB78] transition">
+              Settings
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/"
+              onClick={() => setUser(false)}
+              className="hover:text-[#FAAB78] transition"
+            >
+              Logout
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+
         )}
       </div>
 

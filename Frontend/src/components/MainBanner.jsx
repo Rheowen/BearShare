@@ -14,7 +14,7 @@ const MainBanner = () => {
    </h1>
    <p className='text-4xl'>Community</p>
     <p className='mb-4 mt-2'>สำหรับพ่อแม่ที่ต้องการ<br />แบ่งปัน ซื้อขาย หรือให้เช่าสิ่งของสำหรับเด็ก</p>
-    <Link to="/products"  className="relative w-40    mt-4 px-6 py-2 bg-[#FFDCA9] font-promt rounded-lg shadow-md hover:bg-[#FCF9BE] transition-all ease-in-out cursor-pointer">
+    <Link to="/showproduct"  className="relative w-40    mt-4 px-6 py-2 bg-[#FFDCA9] font-promt rounded-lg shadow-md hover:bg-[#FCF9BE] transition-all ease-in-out cursor-pointer">
              Shop Now
     </Link>                                     
 

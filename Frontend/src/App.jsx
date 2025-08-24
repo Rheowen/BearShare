@@ -9,6 +9,8 @@ import ShowProduct from './pages/ShowProduct';
 import AddProduct from './pages/AddProduct';
 import ProductDetail from './pages/ProductDetail';
 import RentForm from './pages/RentFrom';
+import AdminDashboard from './pages/AdminDashboard';
+import MyOrders from './pages/MyOrders';
 
 
 
@@ -36,6 +38,8 @@ const App = () => {
          <Route path="/products/:productId" element={<ProductDetail />} />
          <Route path="/rent/:id" element={<RentForm />} />
          <Route path="/admin/add-product" element={<AddProduct />} />
+         <Route path="/admindashboard" element={<AdminDashboard />} />
+          <Route path="/myorders" element={<MyOrders />} />
         </Routes>
       </div>
     </div>

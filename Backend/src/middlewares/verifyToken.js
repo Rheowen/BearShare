@@ -9,7 +9,15 @@ function verifyToken(req, res, next) {
 
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) return res.status(403).json({ message: 'Invalid token' });
-    req.user = decoded;
+
+    // Assign เฉพาะ field ที่จำเป็น
+    req.user = {
+      id: decoded.user_id,
+      role: decoded.role,
+      email: decoded.email,
+      name: decoded.name // ถ้าต้องการ
+    };
+
     next();
   });
 }
