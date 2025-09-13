@@ -2,24 +2,76 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAppContext } from "../context/AppContext.jsx";
 
-const RentPage = () => {
-  const { productId } = useParams();
+
+// ProductGallery Component 
+const ProductGallery = ({ product }) => {
   const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState(
+    product.image || "https://i.pinimg.com/1200x/76/0d/58/760d586bb7d1a571a7843580be97f8ec.jpg"
+  );
+
+  const images = [
+    product.image,
+    product.image2,
+    product.image3,
+    product.image4,
+  ].filter(Boolean);
+
+  return (
+    <div className="flex -mt-11 justify-between bg-white p-8">
+      <div className="w-1/2 ml-3 mt-8">
+        <div className="flex gap-4">
+          {/* Thumbnail */}
+          <div className="flex flex-col gap-2">
+            {images.map((img, index) => (
+              <img
+                key={index}
+                src={img}
+                alt={`${product.title} ${index + 1}`}
+                className={`w-20 h-20 object-cover rounded cursor-pointer transition 
+                           ${selectedImage === img ? "ring-2 ring-indigo-500" : ""}`}
+                onClick={() => setSelectedImage(img)}
+              />
+            ))}
+          </div>
+
+          {/* Main Image */}
+          <div className="flex-1">
+            <img
+              src={selectedImage}
+              alt={product.title}
+              className="w-full h-90 object-cover border-2 border-[#FAAB78]  rounded"
+            />
+          </div>
+        </div>
+      </div>
+
+     <div className="flex flex-col justify-start items-start ml-3 w-1/2 mt-10 ml-16">
+      <h1 className="text-3xl font-bold mb-4  mt-4">{product.title}</h1>
+      <p className="text-gray-700 mb-2">{product.category}</p>
+      <p className="text-indigo-500 text-2xl font-semibold mb-4">${product.price}</p>
+       <p className="text-indigo-500 text-2xl font-semibold mb-4">{product.rent_cost}</p>
+      <p className="text-gray-600 mb-4">{product.description}</p>
+           <button
+          onClick={() => navigate(`/rent/${product.product_id}`)}
+          className="bg-[#FAAB78] p-2 rounded text-white font-semibold hover:bg-[#F79657] transition"
+        >
+          ยืนยันเช่า
+        </button>
+    </div>
+    </div>
+  );
+};
+
+// ProductDetail Component
+const ProductDetail = () => {
+  const { productId } = useParams();
   const { user } = useAppContext();
+  const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Form state
-  const [form, setForm] = useState({
-    name: user?.name || "",
-    phone: user?.phone || "",
-    address: "",
-    rental_days: 1,
-    start_date: "",
-  });
-
-  // Fetch product details
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -37,109 +89,10 @@ const RentPage = () => {
     fetchProduct();
   }, [productId]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!user) return alert("กรุณา login ก่อนทำการเช่า");
-
-    try {
-      const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5000/api/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          product_id: productId,
-          ...form,
-        }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "เกิดข้อผิดพลาด");
-
-      alert("เช่าสินค้าสำเร็จ! รอการอนุมัติจาก Admin");
-      navigate("/myorders");
-    } catch (err) {
-      console.error(err);
-      alert("เช่าสินค้าล้มเหลว: " + err.message);
-    }
-  };
-
   if (loading) return <p>กำลังโหลดข้อมูลสินค้า...</p>;
   if (!product) return <p>ไม่พบสินค้า</p>;
 
-  return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
-      <img
-        src={product.image || "https://via.placeholder.com/400x300"}
-        alt={product.title}
-        className="w-full h-64 object-cover mb-4 rounded"
-      />
-      <p className="text-gray-700 mb-2">{product.category}</p>
-      <p className="text-indigo-500 text-2xl font-semibold mb-4">${product.price}</p>
-      <p className="text-gray-600 mb-4">{product.description}</p>
-
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input
-          type="text"
-          name="name"
-          value={form.name}
-          onChange={handleChange}
-          placeholder="ชื่อผู้เช่า"
-          className="p-2 border rounded"
-          required
-        />
-        <input
-          type="text"
-          name="phone"
-          value={form.phone}
-          onChange={handleChange}
-          placeholder="เบอร์โทร"
-          className="p-2 border rounded"
-          required
-        />
-        <textarea
-          name="address"
-          value={form.address}
-          onChange={handleChange}
-          placeholder="ที่อยู่สำหรับจัดส่ง/รับสินค้า"
-          className="p-2 border rounded"
-          required
-        />
-        <input
-          type="number"
-          name="rental_days"
-          value={form.rental_days}
-          onChange={handleChange}
-          min={1}
-          placeholder="จำนวนวันเช่า"
-          className="p-2 border rounded"
-          required
-        />
-        <input
-          type="date"
-          name="start_date"
-          value={form.start_date}
-          onChange={handleChange}
-          className="p-2 border rounded"
-          required
-        />
-        <button
-          type="submit"
-          className="bg-[#FAAB78] p-2 rounded text-white font-semibold hover:bg-[#F79657] transition"
-        >
-          ยืนยันเช่า
-        </button>
-      </form>
-    </div>
-  );
+  return <ProductGallery product={product} />;
 };
 
-export default RentPage;
+export default ProductDetail;

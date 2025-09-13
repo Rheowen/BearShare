@@ -11,6 +11,7 @@ import ProductDetail from './pages/ProductDetail';
 import RentForm from './pages/RentFrom';
 import AdminDashboard from './pages/AdminDashboard';
 import MyOrders from './pages/MyOrders';
+import ProfilePage from './pages/ProfilePage';
 
 
 
@@ -34,12 +35,13 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
          <Route path="/products" element={<ProductsPage />} />
-         <Route path="/showproduct" element={<ShowProduct />} />
+         <Route path="/marketplace" element={<ShowProduct />} />
          <Route path="/products/:productId" element={<ProductDetail />} />
          <Route path="/rent/:id" element={<RentForm />} />
          <Route path="/admin/add-product" element={<AddProduct />} />
          <Route path="/admindashboard" element={<AdminDashboard />} />
           <Route path="/myorders" element={<MyOrders />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </div>
     </div>

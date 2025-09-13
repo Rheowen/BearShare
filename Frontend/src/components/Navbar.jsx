@@ -2,10 +2,11 @@ import React from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { useAppContext } from '../context/AppContext.jsx'
 import ShowProduct from '../pages/ShowProduct.jsx'
+import ProfilePage from '../pages/ProfilePage.jsx'
 
 const Navbar = () => {
   const [open, setOpen] = React.useState(false)
-  const { user, setUser } = useAppContext()
+  const { user, setUser , logout } = useAppContext()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -26,7 +27,7 @@ const Navbar = () => {
         <div className="flex items-start gap-0">
           <ul className="hidden md:flex items-center gap-8 text-sm">
             <li><NavLink to="/" className="hover:text-[#FAAB78] transition">Home</NavLink></li>
-            <li><NavLink to="/showproduct" className="hover:text-[#FAAB78] transition">Marketplace</NavLink></li>
+            <li><NavLink to="/marketplace" className="hover:text-[#FAAB78] transition">Marketplace</NavLink></li>
             <li><NavLink to="/about" className="hover:text-[#FAAB78] transition">About</NavLink></li>
             <li><NavLink to="/community" className="hover:text-[#FAAB78] transition">Community</NavLink></li>
           </ul>
@@ -52,7 +53,7 @@ const Navbar = () => {
             />
           </svg>
         </div>
-
+{/* 
         <div className="relative cursor-pointer">
           <svg width="18" height="18" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -63,7 +64,7 @@ const Navbar = () => {
             />
           </svg>
           <button className="absolute -top-2 -right-3 text-xs text-white bg-indigo-500 w-[18px] h-[18px] rounded-full">3</button>
-        </div>
+        </div> */}
 
         {!user ? (
           <div className="relative flex items-center justify-center space-x-0 ml-10">
@@ -100,14 +101,14 @@ const Navbar = () => {
           )}
 
           <li>
-            <NavLink to="/settings" className="hover:text-[#FAAB78] transition">
-              Settings
+            <NavLink to="/profile" className="hover:text-[#FAAB78] transition">
+              Profile
             </NavLink>
           </li>
           <li>
             <NavLink
               to="/"
-              onClick={() => setUser(false)}
+              onClick={logout}
               className="hover:text-[#FAAB78] transition"
             >
               Logout
