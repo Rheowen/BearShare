@@ -11,16 +11,29 @@ const Categories = () => {
 const { navigate } = useAppContext();
 
   return (
-    <div className='mt-20 px-10 '>
+    <div className='mt-10 px-10 '>
       <p className='font-bold text-xl font-Prompt'>คอลเล็กชันแนะนำ</p>
-      <div className="flex flex-wrap gap-4 mt-6 items-center">
+      <div className="flex flex-wrap gap-4 mt-6  justify-between items-center">
         <div className="flex flex-col items-center cursor-pointer" onClick={() => { navigate('/products'); scrollToTop(0, 0); }}>
           <img src={imageCate} alt="" className="w-40 h-40 rounded-full object-cover hover:scale-105 transition-transform duration-300" />
           <p className="text-center mt-2">Dolls</p>
-          <button  onClick={() => navigate('/products?mode=products')} >
-             add
-          </button>
         </div>
+
+          <div className="flex flex-col items-center cursor-pointer" onClick={() => { navigate('/products'); scrollToTop(0, 0); }}>
+          <img src={imageCate} alt="" className="w-40 h-40 rounded-full object-cover hover:scale-105 transition-transform duration-300" />
+          <p className="text-center mt-2">Dolls</p>
+        </div>
+
+          <div className="flex flex-col items-center cursor-pointer" onClick={() => { navigate('/products'); scrollToTop(0, 0); }}>
+          <img src={imageCate} alt="" className="w-40 h-40 rounded-full object-cover hover:scale-105 transition-transform duration-300" />
+          <p className="text-center mt-2">Dolls</p>
+        </div>
+
+          <div className="flex flex-col items-center cursor-pointer" onClick={() => { navigate('/products'); scrollToTop(0, 0); }}>
+          <img src={imageCate} alt="" className="w-40 h-40 rounded-full object-cover hover:scale-105 transition-transform duration-300" />
+          <p className="text-center mt-2">Dolls</p>
+        </div>
+
       </div>
     </div>
 

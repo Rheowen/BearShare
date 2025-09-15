@@ -1,22 +1,36 @@
 import React, { useState } from 'react';
 
-const ProductForm = ({ onSubmit, initialData = {} }) => {
+const AddProductForm = ({ onSubmit, initialData = {} }) => {
   const [form, setForm] = useState({
     title: initialData.title || '',
     price: initialData.price || '',
     category: initialData.category || '',
     description: initialData.description || '',
-    image: initialData.image || '', 
+    image: initialData.image || null, 
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    const { name, value, files } = e.target;
+
+    if (name === "image" && files.length > 0) {
+      setForm((prev) => ({ ...prev, image: files[0] }));
+    } else {
+      setForm((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(form);
+
+    // ใช้ FormData สำหรับส่งไฟล์
+    const formData = new FormData();
+    formData.append("title", form.title);
+    formData.append("price", form.price);
+    formData.append("category", form.category);
+    formData.append("description", form.description);
+    if (form.image) formData.append("image", form.image);
+
+    onSubmit(formData);
   };
 
   return (
@@ -64,11 +78,11 @@ const ProductForm = ({ onSubmit, initialData = {} }) => {
       </div>
 
       <div>
-        <label>ลิงก์รูปภาพ:</label>
+        <label>อัปโหลดรูปภาพ:</label>
         <input
           type="file"
           name="image"
-          value={form.image}
+          accept="image/*"
           onChange={handleChange}
         />
       </div>
@@ -78,4 +92,4 @@ const ProductForm = ({ onSubmit, initialData = {} }) => {
   );
 };
 
-export default ProductForm;
+export default AddProductForm;

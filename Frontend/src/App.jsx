@@ -4,14 +4,16 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import { useAppContext } from './context/AppContext';
 import LoginPage from './pages/LoginPage';
-import ProductsPage from './pages/ProductsPage';
 import ShowProduct from './pages/ShowProduct';
-import AddProduct from './pages/AddProduct';
 import ProductDetail from './pages/ProductDetail';
 import RentForm from './pages/RentFrom';
 import AdminDashboard from './pages/AdminDashboard';
 import MyOrders from './pages/MyOrders';
 import ProfilePage from './pages/ProfilePage';
+import OrderSummary from "./components/OrderSummary";
+import AddProductForm from "./components/AddProductForm";
+
+
 
 
 
@@ -34,15 +36,16 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
-         <Route path="/products" element={<ProductsPage />} />
-         <Route path="/marketplace" element={<ShowProduct />} />
-         <Route path="/products/:productId" element={<ProductDetail />} />
-         <Route path="/rent/:id" element={<RentForm />} />
-         <Route path="/admin/add-product" element={<AddProduct />} />
-         <Route path="/admindashboard" element={<AdminDashboard />} />
+          <Route path="/marketplace" element={<ShowProduct />} />
+          <Route path="/products/:productId" element={<ProductDetail />} />
+          <Route path="/rent/:id" element={<RentForm />} />
+          <Route path="/admindashboard" element={<AdminDashboard />} />
           <Route path="/myorders" element={<MyOrders />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/order-success" element={<OrderSummary />} />
+          <Route path="/admin/add-product" element={<AddProductForm />} />
         </Routes>
+
       </div>
     </div>
   );

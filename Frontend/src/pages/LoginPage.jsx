@@ -15,7 +15,7 @@ const LoginPage = () => {
   const toggleForm = () => setIsLogin((prev) => !prev);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-white px-4">
       <div className="bg-white  rounded-2xl shadow-xl w-full max-w-5xl ">
         {isLogin ? (
           <LoginForm onSwitch={toggleForm} />

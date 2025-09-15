@@ -28,7 +28,7 @@ const Navbar = () => {
           <ul className="hidden md:flex items-center gap-8 text-sm">
             <li><NavLink to="/" className="hover:text-[#FAAB78] transition">Home</NavLink></li>
             <li><NavLink to="/marketplace" className="hover:text-[#FAAB78] transition">Marketplace</NavLink></li>
-            <li><NavLink to="/about" className="hover:text-[#FAAB78] transition">About</NavLink></li>
+            <li><NavLink to="/TinyBloom" className="hover:text-[#FAAB78] transition">TinyBloom</NavLink></li>
             <li><NavLink to="/community" className="hover:text-[#FAAB78] transition">Community</NavLink></li>
           </ul>
         </div>
@@ -83,6 +83,7 @@ const Navbar = () => {
           </div>
         ) : (
        <div className='px-6 py-2 bg-[#FAAB78] font-promt rounded-lg shadow-md'>
+        <p>{user.coins}</p>
   <img src="/assets/profile.jpg" alt="profile-icon" />
   <ul>
     {user.role === 'user' && (

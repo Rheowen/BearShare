@@ -36,13 +36,13 @@ const ProductCard = ({ product, isAdmin, onEdit, onDelete }) => {
     >
       <div className="group cursor-pointer flex items-center justify-center px-2">
         <img
-          className="group-hover:scale-105 transition max-w-26 md:max-w-36"
-          src={product.image}
+          className="mb-4 group-hover:scale-105 transition max-w-36 md:max-w-36"
+          src={product.image || "https://i.pinimg.com/1200x/76/0d/58/760d586bb7d1a571a7843580be97f8ec.jpg"}
           alt={product.title}
         />
       </div>
       <div className="text-gray-500/60 text-sm">
-        <p className="text-indigo-500">{category}</p>
+        <p className="text-gray-500 text-xs">{category}</p>
         <p className="text-gray-700 font-medium text-lg truncate w-full">{product.title}</p>
         <p className="text-gray-500 text-xs">{ageGroup}</p>
 

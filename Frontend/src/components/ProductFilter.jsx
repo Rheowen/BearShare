@@ -54,13 +54,10 @@ function ProductFilter({
               type="checkbox"
               checked={selectedCategories.includes(cat.category_id)}
               onChange={() => handleCategoryChange(cat.category_id)}
-              className="peer hidden"
-                 />
-              <div className="cursor-pointer px-3 py-1 rounded-md border border-gray-300 
-                            bg-gray-100 text-gray-700 
-                            peer-checked:bg-[#FAAB78] peer-checked:text-white
-                            transition-colors duration-200">
-            {cat.name}
+              className="hidden peer"  />
+              <div className="cursor-pointer px-3 py-1 rounded-md border border-white/30
+              bg-white/30 text-gray-700   peer-checked:bg-[#FAAB78] peer-checked:text-white
+              transition-colors duration-200">{cat.name}
              </div>
           </label>
         ))}
@@ -76,11 +73,9 @@ function ProductFilter({
               onChange={() => handleAgeGroupChange(age.age_group_id)}
               className="peer hidden" // ซ่อน checkbox 
             />
-            <div className="cursor-pointer px-3 py-1 rounded-md border border-gray-300 
-                            bg-gray-100 text-gray-700 
-                            peer-checked:bg-[#FAAB78] peer-checked:text-white
-                            transition-colors duration-200">
-              {age.name}
+            <div className="cursor-pointer px-3 py-1 rounded-md border border-white/30
+              bg-white/30 text-gray-700 peer-checked:bg-[#FAAB78] peer-checked:text-white
+               transition-colors duration-200">{age.name}
             </div>
           </label>
         ))}
